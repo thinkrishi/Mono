@@ -138,7 +138,8 @@ export default function Room() {
   };
 
   const copyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
+    if (!roomId) return;
+    navigator.clipboard.writeText(roomId);
     setCopying(true);
     setTimeout(() => setCopying(false), 2000);
   };
@@ -193,7 +194,7 @@ export default function Room() {
           <button 
             onClick={copyLink} 
             className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 hover:border-black rounded-lg transition-all text-xs font-bold uppercase tracking-widest shadow-sm active:scale-95"
-            title="Copy Link"
+            title="Copy Room Code"
           >
             {copying ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4" />}
             {copying ? 'Copied' : 'Share'}
