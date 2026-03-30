@@ -145,7 +145,7 @@ export default function Feed({ roomId, onActivity }: { roomId: string, onActivit
                   <span className="text-[9px] font-bold uppercase tracking-widest text-gray-400">
                     {item.createdAt?.toDate ? formatDistanceToNow(item.createdAt.toDate(), { addSuffix: true }) : 'Just now'}
                   </span>
-                  <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="flex items-center gap-1 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity">
                     {editingId !== item.id && (
                         <button 
                           onClick={() => startEdit(item)}
