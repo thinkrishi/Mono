@@ -1,0 +1,9 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /rooms/{roomId}/{allPaths=**} {
+      // Allow anonymous read/write for the room-based system
+      allow read, write: if true;
+    }
+  }
+}

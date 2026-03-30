@@ -1,0 +1,63 @@
+// ===============================================================
+// Assumed Data Model
+// ===============================================================
+//
+// Collection: rooms
+// Document ID: {roomId}
+// Fields:
+//   - id: string (required)
+//   - text: string (optional) - The main shared text
+//   - createdAt: timestamp (required)
+//   - lastActivity: timestamp (required)
+//
+// Collection: rooms/{roomId}/feed
+// Document ID: {itemId}
+// Fields:
+//   - type: string (required) - "text" or "file"
+//   - content: string (required)
+//   - fileName: string (optional)
+//   - fileType: string (optional)
+//   - fileSize: number (optional)
+//   - createdAt: timestamp (required)
+//
+// ===============================================================
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+
+    function isAuthenticated() {
+      return true; // App is intentionally anonymous as requested
+    }
+
+    function isValidRoom(data) {
+      return data.id is string && data.id.size() > 0;
+    }
+
+    function isValidFeedItem(data) {
+      return data.type in ['text', 'file'] &&
+             data.content is string && data.content.size() > 0;
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    match /rooms/{roomId} {
+      // Open access for anonymous collaboration
+      allow read, write: if true;
+      
+      match /feed/{itemId} {
+        allow read, create, update, delete: if true;
+      }
+    }
+
+    match /{path=**} {
+      allow read, write: if false;
+    }
+  }
+}
