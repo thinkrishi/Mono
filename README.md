@@ -21,3 +21,7 @@ A real-time, room-based sharing workspace for text and files.
 1. Enter a room code on the landing page.
 2. Start typing in the editor or upload files to the feed.
 3. Share the room code with others to collaborate in real-time.
+
+
+mono-rish.vercel.app
+
